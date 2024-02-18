@@ -121,7 +121,8 @@ public abstract class QueueMonitor {
 
                 long timeout = 0;
                 String id = response.get(i);
-                String scoreString = response.get(i + 1);
+                // Dragonfly returns numeric type
+                String scoreString = String.valueOf(response.get(i + 1));
 
                 int priority =
                         new BigDecimal(scoreString)
