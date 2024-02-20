@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 
-import io.orkes.conductor.mq.redis.single.ConductorRedisQueue;
+import io.orkes.conductor.mq.redis.single.ConductorRedisSingleQueue;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import redis.clients.jedis.JedisPool;
@@ -42,7 +42,7 @@ public class ConductorRedisQueueTest {
             new GenericContainer(DockerImageName.parse("redis:6.2.6-alpine"))
                     .withExposedPorts(6379);
 
-    private static ConductorRedisQueue redisQueue;
+    private static ConductorRedisSingleQueue redisQueue;
 
     private static JedisPool jedisPool;
 
@@ -56,7 +56,7 @@ public class ConductorRedisQueueTest {
         config.setMaxTotal(10);
 
         jedisPool = new JedisPool(config, redis.getHost(), redis.getFirstMappedPort());
-        redisQueue = new ConductorRedisQueue(queueName, jedisPool);
+        redisQueue = new ConductorRedisSingleQueue(queueName, jedisPool);
     }
 
     private QueueMessage popOne() {
@@ -70,7 +70,7 @@ public class ConductorRedisQueueTest {
     @Test
     public void testEmptyPoll() {
         redisQueue.flush();
-        ConductorRedisQueue redisQueue2 = new ConductorRedisQueue(queueName + "X", jedisPool);
+        ConductorRedisSingleQueue redisQueue2 = new ConductorRedisSingleQueue(queueName + "X", jedisPool);
         int count = 0;
         for (int i = 0; i < 10; i++) {
             QueueMessage message = popOne();
@@ -83,7 +83,7 @@ public class ConductorRedisQueueTest {
 
     @Test
     public void testExpiredMessage() {
-        ConductorRedisQueue redisQueue3 = new ConductorRedisQueue(queueName + "Xxxx", jedisPool);
+        ConductorRedisSingleQueue redisQueue3 = new ConductorRedisSingleQueue(queueName + "Xxxx", jedisPool);
         redisQueue3.setQueueUnackTime(5);
         List<QueueMessage> msgs = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
