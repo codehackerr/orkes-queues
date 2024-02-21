@@ -16,7 +16,7 @@ import com.netflix.conductor.core.config.ConductorProperties;
 import com.netflix.conductor.dao.QueueDAO;
 
 import io.orkes.conductor.mq.ConductorQueue;
-import io.orkes.conductor.mq.redis.single.ConductorRedisQueue;
+import io.orkes.conductor.mq.redis.single.ConductorRedisSingleQueue;
 import io.orkes.conductor.queue.config.QueueRedisProperties;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -44,6 +44,6 @@ public class RedisQueueDAO extends BaseRedisQueueDAO implements QueueDAO {
 
     @Override
     protected ConductorQueue getConductorQueue(String queueKey) {
-        return new ConductorRedisQueue(queueKey, jedisPool);
+        return new ConductorRedisSingleQueue(queueKey, jedisPool);
     }
 }
