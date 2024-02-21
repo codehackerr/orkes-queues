@@ -17,6 +17,9 @@ import java.util.concurrent.TimeUnit;
 
 public class QueueMessage {
 
+    public static final int DEFAULT_PRIORITY = 100;
+    public static final int DEFAULT_TIMEOUT = 0;
+
     private String id;
 
     private String payload;
@@ -30,11 +33,11 @@ public class QueueMessage {
     private long expiry;
 
     public QueueMessage(String id, String payload) {
-        this(id, payload, 0, 100);
+        this(id, payload, DEFAULT_TIMEOUT, DEFAULT_PRIORITY);
     }
 
     public QueueMessage(String id, String payload, long timeout) {
-        this(id, payload, timeout, 100);
+        this(id, payload, timeout, DEFAULT_PRIORITY);
     }
 
     public QueueMessage(String id, String payload, long timeout, int priority) {
