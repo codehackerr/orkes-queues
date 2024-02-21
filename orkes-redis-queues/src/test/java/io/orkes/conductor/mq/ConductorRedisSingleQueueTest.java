@@ -26,7 +26,7 @@ import static io.orkes.conductor.mq.QueueMessage.DEFAULT_PRIORITY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class ConductorRedisQueueTest {
+public class ConductorRedisSingleQueueTest {
     @Mock
     private JedisPool jedisPool;
 
