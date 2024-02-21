@@ -31,6 +31,11 @@ public class ConductorRedisSingleQueue extends ConductorRedisQueue {
 
     private final JedisPoolAbstract jedisPool;
 
+    public ConductorRedisSingleQueue(String queueName, JedisPoolAbstract jedisPool, RedisQueueMonitor queueMonitor1) {
+        super(queueName, queueMonitor1);
+        this.jedisPool = jedisPool;
+        log.info("ConductorRedisQueue started serving {}", queueName);
+    }
     public ConductorRedisSingleQueue(String queueName, JedisPoolAbstract jedisPool) {
         super(queueName, new RedisQueueMonitor(jedisPool, queueName));
         this.jedisPool = jedisPool;

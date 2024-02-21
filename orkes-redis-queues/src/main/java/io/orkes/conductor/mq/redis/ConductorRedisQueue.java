@@ -164,7 +164,7 @@ public abstract class ConductorRedisQueue implements ConductorQueue {
         //
         // However the implementation will be O(2 * n)
         //
-        // The below implementation is O(n) and is slightly more efficient (theoretically :))
+        // The below implementation is O(n) and is slightly more efficient
         //
         // Practical question is, What is the typical value of n?
 
