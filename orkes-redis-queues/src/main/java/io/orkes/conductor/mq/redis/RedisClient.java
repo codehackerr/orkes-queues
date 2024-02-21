@@ -30,8 +30,6 @@ public interface RedisClient extends AutoCloseable {
 
     public List<String> hmget(final String key, final String... fields);
 
-    // Above is standalone
-    // clustered and not covered above
     public Long zadd(final String key, final Map<String, Double> scoreMembers);
 
     public String hmset(final String key, final Map<String, String> hash);
@@ -44,8 +42,6 @@ public interface RedisClient extends AutoCloseable {
 
     default void close() {
     }
-
-
 
     static RedisClient of(Jedis jedis) {
         return getRedisClient(jedis, Jedis.class);

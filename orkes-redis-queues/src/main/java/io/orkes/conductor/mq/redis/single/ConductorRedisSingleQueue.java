@@ -37,6 +37,8 @@ public class ConductorRedisSingleQueue extends ConductorRedisQueue {
         log.info("ConductorRedisQueue started serving {}", queueName);
     }
 
+    // TODO: Unify the interface and pull to ConductorRedisQueue
+    // With that this Object will no longer be required
     @Override
     public void push(List<QueueMessage> messages) {
 
@@ -55,27 +57,6 @@ public class ConductorRedisSingleQueue extends ConductorRedisQueue {
             pipe.close();
         }
     }
-
-
-//    @Override
-//    public void push(List<QueueMessage> messages) {
-//
-//        long now = clock.millis();
-//        Map<String, Double> scoreMembers = new HashMap<>(messages.size());
-//        Map<String, String> payloads = new HashMap<>();
-//        for (QueueMessage msg : messages) {
-//            double score = getScore(now, msg);
-//            String messageId = msg.getId();
-//            scoreMembers.put(messageId, score);
-//            if (StringUtils.isNotBlank(msg.getPayload())) {
-//                payloads.put(messageId, msg.getPayload());
-//            }
-//        }
-//        jedis.zadd(queueName, scoreMembers);
-//        if (!payloads.isEmpty()) {
-//            jedis.hmset(payloadKey, payloads);
-//        }
-//    }
 
     @Override
     protected RedisClient redis() {

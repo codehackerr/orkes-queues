@@ -32,6 +32,8 @@ public class ConductorRedisClusterQueue extends ConductorRedisQueue {
         log.info("ConductorRedisClusterQueue started serving {}", queueName);
     }
 
+    // TODO: Unify the interface and pull to ConductorRedisQueue
+    // With that this Object will no longer be required
     @Override
     public void push(List<QueueMessage> messages) {
         Map<String, Double> scoreMembers = new HashMap<>(messages.size());
@@ -39,7 +41,9 @@ public class ConductorRedisClusterQueue extends ConductorRedisQueue {
         setScoreAndPayload(messages, scoreMembers, payloads);
         jedis.zadd(queueName, scoreMembers);
         if (!payloads.isEmpty()) {
+
             // changing to hset because of deprecation https://redis.io/commands/hmset/
+
             jedis.hset(payloadKey, payloads);
         }
     }

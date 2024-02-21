@@ -155,7 +155,7 @@ public abstract class ConductorRedisQueue implements ConductorQueue {
 
     protected void setScoreAndPayload(List<QueueMessage> messages, Map<String, Double> scoreMembers, Map<String, String> payloads) {
 
-        // it will be neate to split this method into two methods
+        // it will be neater to split this method into two methods
         // 1. getScores(messages)
         //      messages.map(this::toScore).collect(Collectors.toMap())
         // AND
@@ -185,6 +185,4 @@ public abstract class ConductorRedisQueue implements ConductorQueue {
                 }
             });
     }
-
-
 }
